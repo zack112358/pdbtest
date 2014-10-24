@@ -52,8 +52,10 @@ def pdb_wrap_cases(test):
     else:
         # print("Wrapping test", test, file=sys.stderr)
         testMethod = getattr(test, test._testMethodName)
+
         def doc_line(docstring):
             return "\n'" + docstring.strip() + "'" if docstring else ''
+
         message = "Debugging exception in test %r%s\nmethod %r%s" % (
             type(test), doc_line(test.__doc__),
             test._testMethodName, doc_line(testMethod.__doc__))
