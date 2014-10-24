@@ -1,5 +1,3 @@
-pdbtest is mostly a convenience module.
-
 Usage:
 python -m pdbtest [module]
 
