@@ -6,8 +6,8 @@ setup(
     description='A unittest shim to make PDB debugging of test cases easy.',
     author='Zachary J. McCord',
     author_email='zjmccord@gmail.com',
-    url='',
-    download_url='',
+    url='https://github.com/zack112358/pdbtest/',
+    download_url='https://github.com/zack112358/pdbtest/tarball/1.0',
     keywords=['testing', 'pdb', 'unittest'],
     classifiers=[],
 )
