@@ -1,25 +1,18 @@
 # Copyright 2014 Zachary J. McCord
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License.  You may obtain a copy
 # of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
 #
 # and a copy of the license is also included in this software package.
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 # License for the specific language governing permissions and limitations under
 # the License.
-
-from __future__ import print_function
-import unittest
-import functools
-import pdb
-import types
-import sys
 
 """
 A simple library to be used after the manner of unittest that tries to hook
@@ -28,9 +21,17 @@ don't really have control over the test code, or don't want to modifiy the test
 code, but still want to get an interactive debugger instead of a summary.
 """
 
+from __future__ import print_function
+import unittest
+import pdb
+import types
+import sys
+
 
 def pdb_wrap(fun, message=None):
+    "Wrap a function to invoke PDB on exception"
     def hooked_fun(*args, **kwargs):
+        "Hooked version of the given function"
         try:
             fun(*args, **kwargs)
         except:
@@ -43,6 +44,7 @@ def pdb_wrap(fun, message=None):
 
 
 def pdb_wrap_cases(test):
+    "Wrap a test case or test suite to invoke PDB on exception"
     if hasattr(test, '_tests'):
         # print("Wrapping suite", test, file=sys.stderr)
         for i in xrange(len(test._tests)):
@@ -66,6 +68,7 @@ class PDBRunnerMixin(object):
     in tests
     """
     def run(self, test):
+        "Wrap the test case with PDB catch-debug and then run as normal"
         hooked_test = pdb_wrap_cases(test)
         return super(PDBRunnerMixin, self).run(hooked_test)
 
