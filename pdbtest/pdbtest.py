@@ -47,7 +47,7 @@ def pdb_wrap_cases(test):
     "Wrap a test case or test suite to invoke PDB on exception"
     if hasattr(test, '_tests'):
         # print("Wrapping suite", test, file=sys.stderr)
-        for i in xrange(len(test._tests)):
+        for i in range(len(test._tests)):
             test._tests[i] = pdb_wrap_cases(test._tests[i])
     else:
         # print("Wrapping test", test, file=sys.stderr)
@@ -88,19 +88,15 @@ class TestProgram(unittest.TestProgram):
         Take the specified testRunner, mix in the PDB behavior, and continue
         like normal
         """
-        assert isinstance(testRunner, types.TypeType)
-        testRunner = type("PDB" + testRunner.__name__,
-                          (PDBRunnerMixin, testRunner),
-                          dict())
+        assert isinstance(testRunner, type(object))
+        PDBTestRunner = type("PDB" + testRunner.__name__,
+                             (PDBRunnerMixin, testRunner),
+                             dict())
         # pdb.set_trace()
         super(TestProgram, self).__init__(*args,
-                                          testRunner=testRunner,
+                                          testRunner=PDBTestRunner,
                                           module=module,
                                           **kwargs)
 
 
 main = TestProgram
-
-
-if __name__ == '__main__':
-    main()
