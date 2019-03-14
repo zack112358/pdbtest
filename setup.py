@@ -1,9 +1,9 @@
-from distutils.core import setup
+import setuptools
 
 with open("README.md", "r") as readme:
     long_description = readme.read()
 
-setup(
+setuptools.setup(
     author='Zachary J. McCord',
     author_email='zjmccord@gmail.com',
     classifiers=["Programming Language :: Python :: 3",
@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     name='pdbtest',
-    packages=['pdbtest'],
+    packages=setuptools.find_packages(),
     url='https://github.com/zack112358/pdbtest/',
-    version='1.4',
+    version='1.5',
 )
